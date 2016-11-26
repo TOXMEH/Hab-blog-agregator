@@ -2,6 +2,7 @@ package ru.dvfu.agregator.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import java.util.List;
 
@@ -11,8 +12,12 @@ import java.util.List;
 @Entity
 public class Hab {
 
+    @Id
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "habs")
     private List<Article> articles;
+
+    public Hab() {
+    }
 }
