@@ -1,7 +1,6 @@
 package ru.dvfu.agregator.controller;
 
 import io.swagger.annotations.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,31 +20,34 @@ import ru.dvfu.agregator.service.AuthorizationService;
 @Api(value = "Authorization", description = "controller for registration and authorization")
 public class AuthorizationController {
 
-    @Autowired
     private SpringConfiguration springConfiguration;
 
-    @Autowired
     private AuthorizationService authorizationService;
 
-    @ApiOperation(value = "registrate new user", notes = "make distribution to all bot users", tags = {"Authorization"})
+    @ApiOperation(value = "registrate new user", notes = "", tags = {"Authorization"})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "")})
+            @ApiResponse(code = 200, message = "no collisions"),
+            @ApiResponse(code = 409, message = "some collision occurred")})
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<String> registrateUser(@ApiParam(value = "user login", required = true) @RequestParam("login") String login, @ApiParam(value = "user password", required = true) @RequestParam("password") String password) {
-        String token = authorizationService.register(login, password);
-        return ResponseEntity.status(HttpStatus.OK).body(token);
+        boolean registred = authorizationService.register(login, password);
+        if (registred) {
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        }
     }
 
 
-    @ApiOperation(value = "make distribition", notes = "make distribution to all bot users", tags = {"Authorization"})
+    @ApiOperation(value = "authorize user", notes = "", tags = {"Authorization"})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),
-            @ApiResponse(code = 401, message = "")})
+            @ApiResponse(code = 401, message = "user with such parameters not found")})
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<String> authorizeUser(@ApiParam(value = "user login", required = true) @RequestParam("login") String login, @ApiParam(value = "user password", required = true) @RequestParam("password") String password) {
-        String token = authorizationService.authorize(login, password);
-        if (token != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(token);
+        boolean authorized = authorizationService.authorize(login, password);
+        if (authorized) {
+            return ResponseEntity.status(HttpStatus.OK).body(null);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }

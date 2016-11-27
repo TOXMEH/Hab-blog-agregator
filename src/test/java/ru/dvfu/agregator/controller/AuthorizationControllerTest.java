@@ -6,7 +6,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ru.dvfu.agregator.service.AuthorizationService;
 
@@ -15,7 +14,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -41,40 +39,48 @@ public class AuthorizationControllerTest {
 
     @Test
     public void successfulRegistration() throws Exception {
-        when(authorizationService.register(any(), any())).thenReturn("someToken");
+        when(authorizationService.register(any(), any())).thenReturn(true);
 
         mockMvc.perform(post("/api/auth")
                 .param("login", "Tony")
                 .param("password", "pass"))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("someToken"));
+                .andExpect(status().isOk());
+
+        verify(authorizationService).register("Tony", "pass");
+    }
+
+    @Test
+    public void unsuccessfulRegistration() throws Exception {
+        when(authorizationService.register(any(), any())).thenReturn(false);
+
+        mockMvc.perform(post("/api/auth")
+                .param("login", "Tony")
+                .param("password", "pass"))
+                .andExpect(status().isConflict());
 
         verify(authorizationService).register("Tony", "pass");
     }
 
     @Test
     public void successfulAuthorization() throws Exception {
-        when(authorizationService.authorize(any(), any())).thenReturn("someToken");
+        when(authorizationService.authorize(any(), any())).thenReturn(true);
 
         mockMvc.perform(get("/api/auth")
                 .param("login", "Tony")
                 .param("password", "pass"))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("someToken"));
+                .andExpect(status().isOk());
 
         verify(authorizationService).authorize("Tony", "pass");
     }
 
     @Test
     public void unsuccessfulAuthorization() throws Exception {
-        when(authorizationService.authorize(any(), any())).thenReturn(null);
+        when(authorizationService.authorize(any(), any())).thenReturn(false);
 
         mockMvc.perform(get("/api/auth")
                 .param("login", "Tony")
                 .param("password", "pass"))
-                .andExpect(status().isUnauthorized())
-                //не факт, что сработает, если что удали строку. Она проверяет,что в body ничего не передается
-                .andExpect(flash().attributeCount(0));
+                .andExpect(status().isUnauthorized());
 
         verify(authorizationService).authorize("Tony", "pass");
     }

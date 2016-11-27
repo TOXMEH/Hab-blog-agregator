@@ -12,4 +12,9 @@ public class User {
     private String name;
 
     private String password;
+
+    public User(String login, String pass) {
+        this.name = login;
+        this.password = pass;
+    }
 }
