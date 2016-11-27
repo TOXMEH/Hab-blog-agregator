@@ -13,7 +13,9 @@ import ru.dvfu.agregator.service.AuthorizationService;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.flash;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -50,27 +52,31 @@ public class AuthorizationControllerTest {
         verify(authorizationService).register("Tony", "pass");
     }
 
-//    @Test
-//    public void successfulAuthorization() throws Exception {
-//        when(authorizationService.authorize(any(), any())).thenReturn("someToken");
-//
-//        mockMvc.perform(get("/api/auth")
-//                .param("login", "Tony")
-//                .param("password", "pass"))
-//                .andExpect(status().isOk())
-//                .andExpect(flash().attribute("token", "someToken"));
-//    }
-//
-//    @Test
-//    public void unsuccessfulAuthorization() throws Exception {
-//        when(authorizationService.authorize(any(), any())).thenReturn(null);
-//
-//        mockMvc.perform(get("/api/auth")
-//                .param("login", "Tony")
-//                .param("password", "pass"))
-//                .andExpect(status().isUnauthorized())
-//                //не факт, что сработает, если что удали строку. Она проверяет,что в body ничего не передается
-//                .andExpect(flash().attributeCount(0));
-//    }
+    @Test
+    public void successfulAuthorization() throws Exception {
+        when(authorizationService.authorize(any(), any())).thenReturn("someToken");
+
+        mockMvc.perform(get("/api/auth")
+                .param("login", "Tony")
+                .param("password", "pass"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("someToken"));
+
+        verify(authorizationService).authorize("Tony", "pass");
+    }
+
+    @Test
+    public void unsuccessfulAuthorization() throws Exception {
+        when(authorizationService.authorize(any(), any())).thenReturn(null);
+
+        mockMvc.perform(get("/api/auth")
+                .param("login", "Tony")
+                .param("password", "pass"))
+                .andExpect(status().isUnauthorized())
+                //не факт, что сработает, если что удали строку. Она проверяет,что в body ничего не передается
+                .andExpect(flash().attributeCount(0));
+
+        verify(authorizationService).authorize("Tony", "pass");
+    }
 
 }
