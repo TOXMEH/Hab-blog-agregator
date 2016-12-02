@@ -13,10 +13,10 @@ public class UserService {
     private UserRepository userRepository;
 
     public User getUserByName(String name) {
-        return null;
+        return userRepository.getUserByName(name);
     }
 
     public void save(User mockUser) {
-
+        userRepository.save(mockUser);
     }
 }

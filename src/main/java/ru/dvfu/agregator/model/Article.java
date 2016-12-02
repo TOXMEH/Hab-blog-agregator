@@ -26,7 +26,7 @@ public class Article {
             joinColumns = @JoinColumn(name="article_id", referencedColumnName="id"),
             inverseJoinColumns = @JoinColumn(name="hab_name", referencedColumnName="name")
     )
-    private List<Hab> habs;
+    private List<Hub> hubs;
 
     /*
     * Год публикации
@@ -34,6 +34,4 @@ public class Article {
     @Min(2000)
     @Max(2100)
     private short publicationYear;
-
-    private String author;
 }

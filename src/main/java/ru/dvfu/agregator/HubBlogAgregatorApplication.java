@@ -10,9 +10,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableAutoConfiguration
 @ComponentScan
 @EnableSwagger2
-public class HabBlogAgregatorApplication {
+public class HubBlogAgregatorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HabBlogAgregatorApplication.class, args);
-	}
+        SpringApplication.run(HubBlogAgregatorApplication.class, args);
+    }
 }

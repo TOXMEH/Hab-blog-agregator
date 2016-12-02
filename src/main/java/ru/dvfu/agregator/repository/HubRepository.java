@@ -1,14 +1,16 @@
 package ru.dvfu.agregator.repository;
 
+/**
+ * Created by nesud on 02.12.2016.
+ */
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import ru.dvfu.agregator.model.Hub;
 import ru.dvfu.agregator.model.User;
 
-/**
- * Created by nesud on 27.11.2016.
- */
 @Repository
-public interface UserRepository extends CrudRepository<User, String> {
+public interface HubRepository extends CrudRepository<User, String> {
 
-    User getUserByName(String name);
+    Hub getHubByName(String name);
 }

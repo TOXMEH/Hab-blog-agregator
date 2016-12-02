@@ -14,6 +14,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -44,7 +45,8 @@ public class AuthorizationControllerTest {
         mockMvc.perform(post("/api/auth")
                 .param("login", "Tony")
                 .param("password", "pass"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string(""));
 
         verify(authorizationService).register("Tony", "pass");
     }
@@ -56,7 +58,8 @@ public class AuthorizationControllerTest {
         mockMvc.perform(post("/api/auth")
                 .param("login", "Tony")
                 .param("password", "pass"))
-                .andExpect(status().isConflict());
+                .andExpect(status().isConflict())
+                .andExpect(content().string(""));
 
         verify(authorizationService).register("Tony", "pass");
     }
@@ -68,7 +71,8 @@ public class AuthorizationControllerTest {
         mockMvc.perform(get("/api/auth")
                 .param("login", "Tony")
                 .param("password", "pass"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string(""));
 
         verify(authorizationService).authorize("Tony", "pass");
     }
@@ -80,7 +84,8 @@ public class AuthorizationControllerTest {
         mockMvc.perform(get("/api/auth")
                 .param("login", "Tony")
                 .param("password", "pass"))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isUnauthorized())
+                .andExpect(content().string(""));
 
         verify(authorizationService).authorize("Tony", "pass");
     }

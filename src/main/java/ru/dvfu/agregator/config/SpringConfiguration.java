@@ -3,6 +3,7 @@ package ru.dvfu.agregator.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.dvfu.agregator.service.AuthorizationService;
+import ru.dvfu.agregator.service.HubService;
 import ru.dvfu.agregator.service.UserService;
 
 /**
@@ -19,5 +20,10 @@ public class SpringConfiguration {
     @Bean
     public UserService getUserService() {
         return new UserService();
+    }
+
+    @Bean
+    public HubService getHubService() {
+        return new HubService();
     }
 }
