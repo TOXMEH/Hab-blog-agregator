@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.*;
 
 /**
  * Created by nesud on 27.11.2016.
@@ -21,23 +20,23 @@ public class User {
     @Setter
     private String password;
 
-    @Getter
-    @Setter
-    private Set<Hub> hubs;
-    @Getter
-    @Setter
-    private Map<Hub, Integer> hubDistribution;
-    @Getter
-    @Setter
-    private List<Article> staredArticles;
-    @Getter
-    @Setter
-    private List<Article> watchLaterArticles;
+//    @Getter
+//    @Setter
+//    private Set<Hub> hubs;
+//    @Getter
+//    @Setter
+//    private Map<Hub, Integer> hubDistribution;
+//    @Getter
+//    @Setter
+//    private List<Article> staredArticles;
+//    @Getter
+//    @Setter
+//    private List<Article> watchLaterArticles;
 
     public User(String login, String pass) {
         this.name = login;
         this.password = pass;
-        this.hubs = new HashSet<>();
-        this.hubDistribution = new TreeMap<>();
+//        this.hubs = new HashSet<>();
+//        this.hubDistribution = new TreeMap<>();
     }
 }

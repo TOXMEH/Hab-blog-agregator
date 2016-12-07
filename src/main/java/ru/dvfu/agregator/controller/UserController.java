@@ -41,7 +41,7 @@ public class UserController {
         User user = userService.getUserByName(name);
         for (String hubName : hubs) {
             Hub hub = hubService.getHubByName(hubName);
-            user.getHubs().add(hub);
+//            user.getHubs().add(hub);
         }
         userService.save(user);
     }
