@@ -7,10 +7,9 @@ package ru.dvfu.agregator.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.dvfu.agregator.model.Hub;
-import ru.dvfu.agregator.model.User;
 
 @Repository
-public interface HubRepository extends CrudRepository<User, String> {
+public interface HubRepository extends CrudRepository<Hub, String> {
 
     Hub getHubByName(String name);
 }

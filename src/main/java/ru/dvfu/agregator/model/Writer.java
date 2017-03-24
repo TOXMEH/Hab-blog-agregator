@@ -1,5 +1,6 @@
 package ru.dvfu.agregator.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,39 +8,34 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Anton Nesudimov on 16.11.2016.
+ * Created by anton on 14.03.17.
  */
 @Entity
 @NoArgsConstructor
-public class Hub {
+@AllArgsConstructor
+public class Writer {
     @Getter
     @Setter
     @Id
     private String name;
 
+    @Getter
+    @Setter
+    private String password;
 
     @Getter
     @Setter
-    private String description;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "writer")
+    private Set<ArticleDetailed> articles;
 
-    @Getter
-    @Setter
-    private int subscribers = 0;
-
-    @Getter
-    @Setter
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "hubs")
-    private Set<Article> articles;
-
-    public Hub(String name, String description) {
+    public Writer(String name, String password) {
         this.name = name;
-        this.description = description;
-        this.subscribers = 0;
+        this.password = password;
         this.articles = new HashSet<>();
     }
 }

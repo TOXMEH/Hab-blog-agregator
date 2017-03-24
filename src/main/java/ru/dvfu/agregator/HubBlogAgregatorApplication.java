@@ -4,15 +4,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+//import ru.dvfu.agregator.config.SpringConfiguration;
 
 @SpringBootApplication
 @EnableAutoConfiguration
 @ComponentScan
-@EnableSwagger2
+//@Import({SpringConfiguration.class})
 public class HubBlogAgregatorApplication {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         SpringApplication.run(HubBlogAgregatorApplication.class, args);
     }
 }
