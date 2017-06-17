@@ -12,17 +12,17 @@ $(function () {
         return matches ? decodeURIComponent(matches[1]) : undefined;
     }
 
-    function stareButton(item) {
-        return $("<button>")
-            .text("Добавить в \"Избранное\"")
-            .click(function (e) {
-                $.ajax({
-                    type: "PUT",
-                    url: "/api/articles/stare?reader=" + getCookie("name") + "&article=" + item.header
-                });
-                location.reload();
-            });
-    }
+    // function stareButton(item) {
+    //     return $("<button>")
+    //         .text("Добавить в \"Избранное\"")
+    //         .click(function (e) {
+    //             $.ajax({
+    //                 type: "PUT",
+    //                 url: "/api/articles/stare?reader=" + getCookie("name") + "&article=" + item.header
+    //             });
+    //             location.reload();
+    //         });
+    // }
 
     function watchLaterButton(item) {
         return $("<button>")

@@ -10,12 +10,15 @@ $(function () {
         }
 
         function subscribeButton(item) {
+            console.log("/api/hubs/reader?hub=" + item.name + "&reader=" + getCookie("name"));
             return $("<button>")
                 .text("Подписаться")
+                .addClass('btn btn-default btn-xs')
                 .click(function (e) {
+                    let queryParameters = $.param({"hub": item.name, reader: getCookie("name")});
                     $.ajax({
                         type: "PUT",
-                        url: "/api/hubs/reader?reader=" + getCookie("name") + "&hub=" + item.name
+                        url: "/api/hubs/reader?" + queryParameters
                     });
                     location.reload();
                 });
@@ -25,9 +28,10 @@ $(function () {
             return $("<button>")
                 .text("Отписаться")
                 .click(function (e) {
+                    let queryParameters = $.param({"hub": item.name, reader: getCookie("name")});
                     $.ajax({
                         type: "DELETE",
-                        url: "/api/hubs/reader?reader=" + getCookie("name") + "&hub=" + item.name,
+                        url: "/api/hubs/reader?" + queryParameters,
                     });
                     location.reload();
                 });
@@ -43,7 +47,6 @@ $(function () {
             paging: false,
             autoload: true,
             pageLoading: false,
-            // deleteConfirm: "Вы действительно хотите удалить хаб?",
             controller: {
                 loadData: function () {
                     return $.ajax({
@@ -84,6 +87,18 @@ $(function () {
                     type: "control",
                     deleteButton: false,
                     editButton: false,
+                    itemTemplate: function (value, item) {
+                        var $result = jsGrid.fields.control.prototype.itemTemplate.apply(this, arguments);
+                        var $customButton;
+
+                        if (item.subscribed) {
+                            $customButton = unsubscribeButton(item);
+                        } else {
+                            $customButton = subscribeButton(item);
+                        }
+
+                        return $result.add($customButton);
+                    }
 
                 }
             ]

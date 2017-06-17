@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.dvfu.agregator.model.Article;
 import ru.dvfu.agregator.model.Reader;
 import ru.dvfu.agregator.model.Writer;
+import ru.dvfu.agregator.repository.ArticleDetailedRepository;
 import ru.dvfu.agregator.repository.ArticleRepository;
 
 import javax.annotation.Resource;
@@ -17,6 +18,7 @@ import java.util.Objects;
 @Service
 public class ArticleService {
 
+    ArticleDetailedRepository articleDetailedRepository;
     @Resource
     private ArticleRepository articleRepository;
     @Resource
@@ -83,5 +85,12 @@ public class ArticleService {
 
     public Article getArticleByHeader(String articleHeader) {
         return articleRepository.getArticleByHeader(articleHeader);
+    }
+
+    public void removeArticle(String header) {
+        Article article = articleRepository.findOne(header);
+        articleRepository.delete(article);
+//        ArticleDetailed articleDetailed = articleDetailedRepository.findOne(header);
+//        articleDetailedRepository.delete(articleDetailed);
     }
 }

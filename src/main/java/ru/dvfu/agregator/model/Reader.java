@@ -32,23 +32,23 @@ public class Reader {
     @Setter
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Hub> hubs;
-
-    @Getter
-    @Setter
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<ArticleDetailed> staredArticles;
-
-    @Getter
-    @Setter
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<ArticleDetailed> watchLaterArticles;
+//
+//    @Getter
+//    @Setter
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private Set<ArticleDetailed> staredArticles;
+//
+//    @Getter
+//    @Setter
+//    @OneToMany(cascade = CascadeType.ALL)
+//    private Set<ArticleDetailed> watchLaterArticles;
 
     public Reader(String name, String password) {
         this.name = name;
         this.password = password;
         this.hubs = new HashSet<>();
-        this.staredArticles = new HashSet<>();
-        this.watchLaterArticles = new HashSet<>();
+//        this.staredArticles = new HashSet<>();
+//        this.watchLaterArticles = new HashSet<>();
     }
 
     //

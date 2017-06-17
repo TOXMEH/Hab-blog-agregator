@@ -71,22 +71,31 @@ public class HubController {
 
 
     @RequestMapping(value = "/reader", method = RequestMethod.PUT)
-    public boolean addSubscription(@RequestParam("reader") String readerName, @RequestParam("hub") String hubName) {
+    public int addSubscription(@RequestParam("reader") String readerName, @RequestParam("hub") String hubName) {
         Hub hub = hubService.getHubByName(hubName);
         hub.setSubscribers(hub.getSubscribers() + 1);
         Reader reader = readerService.getReaderByName(readerName);
         boolean b = reader.getHubs().add(hub);
         readerService.save(reader);
-        return b;
+        if (!b) {
+            return -1;
+        } else {
+            return hub.getSubscribers();
+        }
     }
 
     @RequestMapping(value = "/reader", method = RequestMethod.DELETE)
-    public void removeSubscription(@RequestParam("reader") String readerName, @RequestParam("hub") String hubName) {
+    public int removeSubscription(@RequestParam("reader") String readerName, @RequestParam("hub") String hubName) {
         Hub hub = hubService.getHubByName(hubName);
         hub.setSubscribers(hub.getSubscribers() - 1);
         Reader reader = readerService.getReaderByName(readerName);
-        reader.getHubs().remove(hub);
+        boolean b = reader.getHubs().remove(hub);
         readerService.save(reader);
+        if (!b) {
+            return -1;
+        } else {
+            return hub.getSubscribers();
+        }
     }
 
 

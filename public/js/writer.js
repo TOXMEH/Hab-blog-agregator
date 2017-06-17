@@ -21,6 +21,7 @@ $(function () {
             height: "600px",
             width: "100%",
             filtering: false,
+            deleting: true,
             editing: true,
             inserting: true,
             sorting: true,
@@ -37,7 +38,7 @@ $(function () {
                 insertItem: function (item) {
                     return $.ajax({
                         type: "POST",
-                        url: "/api/articles",
+                        url: "/api/articles/" + getCookie("name"),
                         data: item
                     });
                 },
@@ -45,6 +46,12 @@ $(function () {
                     return $.ajax({
                         type: "PUT",
                         url: "/api/articles?header=" + item.header + "&text=" + item.text + "&hubOne=" + item.hubOne + "&hubTwo=" + item.hubTwo + "&hubThree=" + item.hubThree,
+                    });
+                },
+                deleteItem: function (item) {
+                    return $.ajax({
+                        type: "DELETE",
+                        url: "/api/articles?header=" + item.header
                     });
                 },
             },
@@ -64,16 +71,17 @@ $(function () {
                     message: function () {
                         return "Хаб должен иметь текст";
                     }
-                }, sorting: false, width: 150
+                }, sorting: false, width: 300
 
                 },
-
-                {
-                    name: "writer",
-                    title: "Автор (писатель)",
-                    type: "text",
-                    editing: false
-                },
+                //
+                // {
+                //     name: "writer",
+                //     title: "Автор (писатель)",
+                //     type: "text",
+                //     editing: false,
+                //     inserting: false
+                // },
 
                 {
                     name: "publicationYear",
@@ -83,23 +91,23 @@ $(function () {
                     inserting: false,
                 },
 
-                {
-                    name: "timesStared",
-                    title: "Количество раз статья была добавлена в избранное",
-                    type: "number",
-                    editing: false,
-                    inserting: false
+                // {
+                //     name: "timesStared",
+                //     title: "Количество раз статья была добавлена в избранное",
+                //     type: "number",
+                //     editing: false,
+                //     inserting: false
+                //
+                // },
 
-                },
-
-                {
-                    name: "timesWatchLater",
-                    title: "Количество раз статья была добавлена в «Прочитать позже»",
-                    type: "number",
-                    editing: false,
-                    inserting: false
-
-                },
+                // {
+                //     name: "timesWatchLater",
+                //     title: "Количество раз статья была добавлена в «Прочитать позже»",
+                //     type: "number",
+                //     editing: false,
+                //     inserting: false
+                //
+                // },
 
                 {
                     name: "hubOne",
@@ -132,7 +140,7 @@ $(function () {
                     // editing: false,
                     sorting: false
                 },
-                {type: "control", deleteButton: false}
+                {type: "control", deleteButton: true}
             ]
         });
 

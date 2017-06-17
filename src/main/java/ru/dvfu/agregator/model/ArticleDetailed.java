@@ -28,13 +28,13 @@ public class ArticleDetailed {
     @JoinColumn(name = "name", nullable = false)
     private Writer writer;
 
-    @Getter
-    @Setter
-    private int timesStared = 0;
-
-    @Getter
-    @Setter
-    private int timesWatchLater = 0;
+//    @Getter
+//    @Setter
+//    private int timesStared = 0;
+//
+//    @Getter
+//    @Setter
+//    private int timesWatchLater = 0;
 
     @Getter
     @Setter

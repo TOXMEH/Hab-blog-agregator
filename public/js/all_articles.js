@@ -58,8 +58,12 @@ $(function () {
                     validator: "required",
                     message: function () {
                         return "Хаб должен иметь текст";
-                    }
-                }, sorting: false, width: 150
+                    },
+                    width: 300
+
+                }, sorting: false,
+                    width: 300
+
 
                 },
 
@@ -67,7 +71,8 @@ $(function () {
                     name: "writer",
                     title: "Автор (писатель)",
                     type: "text",
-                    editing: false
+                    editing: false,
+                    width: 50
                 },
 
                 {
@@ -76,25 +81,26 @@ $(function () {
                     type: "number",
                     editing: false,
                     inserting: false,
+                    width: 50
                 },
 
-                {
-                    name: "timesStared",
-                    title: "Количество раз статья была добавлена в избранное",
-                    type: "number",
-                    editing: false,
-                    inserting: false
-
-                },
-
-                {
-                    name: "timesWatchLater",
-                    title: "Количество раз статья была добавлена в «Прочитать позже»",
-                    type: "number",
-                    editing: false,
-                    inserting: false
-
-                },
+                // {
+                //     name: "timesStared",
+                //     title: "Количество раз статья была добавлена в избранное",
+                //     type: "number",
+                //     editing: false,
+                //     inserting: false
+                //
+                // },
+                //
+                // {
+                //     name: "timesWatchLater",
+                //     title: "Количество раз статья была добавлена в «Прочитать позже»",
+                //     type: "number",
+                //     editing: false,
+                //     inserting: false
+                //
+                // },
 
                 {
                     name: "hubOne",

@@ -53,8 +53,8 @@ public class Article {
         this.articleDetailed.setHeader(header);
         this.articleDetailed.setWriter(writer);
         this.articleDetailed.setPublicationYear((short) 2017);
-        this.articleDetailed.setTimesStared(0);
-        this.articleDetailed.setTimesWatchLater(0);
+//        this.articleDetailed.setTimesStared(0);
+//        this.articleDetailed.setTimesWatchLater(0);
         this.articleDetailed.setArticle(this);
     }
 
